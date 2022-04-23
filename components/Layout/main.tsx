@@ -9,7 +9,7 @@ export default function Layout
     }: Props
   ) {
   return (
-    <main className="bg-slate-900 p-2 text-white min-h-screen">
+    <main className="bg-slate-900 text-white min-h-screen">
       <Head>
         <link rel="shortcur icon" href="https://cdn.atomik.vip/themes/mcs/favicon.png" type="image/x-icon" />
         <link rel="apple-touch-icon" href="public/vercel.svg" />

@@ -11,7 +11,7 @@ export const Form = <Props extends FormProps>(
   }: Props
 ) => {
   return (
-    <form className="from-current w-3/5 flex flex-col items-center max-w-lg gap-4" onSubmit={submitEvent}>
+    <form className="w-10/12 flex flex-col justify-self-center items-center gap-4 sm:w-full" onSubmit={submitEvent}>
       {children}
     </form>
   )
