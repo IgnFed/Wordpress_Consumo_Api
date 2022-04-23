@@ -1,5 +1,3 @@
-import { DataResponse } from "interfaces/DataResponse"
-
 export interface apiHookProps{
   url?: string
 }
@@ -12,9 +10,9 @@ interface IFilters{
   page: number
 }
 
-export type apiHookReturn<Data = Array<{}>> = {
+export type apiHookReturn<Data = any> = {
   isLoading: boolean,
-  data: Array<DataResponse>,
+  response: Data,
   updateFilters: (filters: Filters)=> void,
   abort: ()=> void
 }
