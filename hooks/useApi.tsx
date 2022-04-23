@@ -50,7 +50,10 @@ export default function useApi<Props extends apiHookProps>(
     return {
       data,
       isLoading,
-      updateFilters: (filters: Filters) => setFilters((prevFilters) => ({ ...prevFilters, ...filters })),
+      updateFilters: (filters: Filters) =>{
+        setFilters((prevFilters) => ({ ...prevFilters, ...filters }))
+        setIsLoading(true)
+      },
       abort: ()=>{
         abortController && abortController.abort()
         console.log("Abort")
