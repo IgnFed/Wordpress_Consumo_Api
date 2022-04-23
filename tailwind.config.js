@@ -6,7 +6,7 @@ module.exports = {
   theme: {
     extend: {
       gridTemplateColumns: {
-        'auto-fill': 'repeat(auto-fit, minmax(75px, 250px))',
+        'auto-fill': 'repeat(auto-fill, minmax(75px, 250px))',
       },
       keyframes: {
         wave: {
