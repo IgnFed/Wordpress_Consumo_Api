@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { apiHookProps, apiHookReturn, Filters } from 'interfaces/hooks/useApi.interface';
-import { DataResponse } from 'interfaces/DataResponse';
+import { DataResponse } from 'interfaces/DataResponse.interface';
 
-const INITIAL_STATE = [] as Array<DataResponse>
+const INITIAL_STATE = {} as DataResponse
 let abortController:AbortController;
 const INITIAL_FILTERS = {
   method: 'GET',
@@ -15,8 +15,8 @@ const BASE_URL = "https://beta.mejorconsalud.com/wp-json/mc/v3/"
 
 const fetchData = async (url: string, parameters: Filters) => {
   const { search, orderByRelevance, method, page } = parameters
-  const URL_REQUEST = `posts?search=${search}&page=${page}${orderByRelevance ? '&orderby=relevance' : ''}`
-  return await fetch(url + URL_REQUEST, {
+  const url_request = `posts?search=${search}&page=${page}${orderByRelevance ? '&orderby=relevance' : ''}`
+  return await fetch(url + url_request, {
     method: method,
     signal: abortController.signal
   })
@@ -26,10 +26,10 @@ export default function useApi<Props extends apiHookProps>(
   {
     url = BASE_URL,
   }: Props
-): apiHookReturn {
+): apiHookReturn<DataResponse> {
 
-  const [data, setData] = useState<typeof INITIAL_STATE>(INITIAL_STATE)
-  const [ isLoading, setIsLoading ] = useState(true)
+  const [response, setReponse] = useState<typeof INITIAL_STATE>(INITIAL_STATE)
+  const [ isLoading, setIsLoading ] = useState(false)
   const [filters, setFilters] = useState(INITIAL_FILTERS)
 
   useEffect(()=>{
@@ -38,7 +38,7 @@ export default function useApi<Props extends apiHookProps>(
     fetchData(url, filters)
       .then(res => res.json())
       .then(res => {
-        setData(()=>res.data)
+        setReponse(()=>res)
         setIsLoading(false)
       })
       return ()=>{
@@ -48,7 +48,7 @@ export default function useApi<Props extends apiHookProps>(
     }, [filters])
 
     return {
-      data,
+      response,
       isLoading,
       updateFilters: (filters: Filters) =>{
         setFilters((prevFilters) => ({ ...prevFilters, ...filters }))
@@ -56,7 +56,6 @@ export default function useApi<Props extends apiHookProps>(
       },
       abort: ()=>{
         abortController && abortController.abort()
-        console.log("Abort")
         setIsLoading(false)
       }
   }
