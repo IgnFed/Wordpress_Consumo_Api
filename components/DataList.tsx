@@ -35,9 +35,10 @@ interface DataListProps {
 
 export const DataList = <Props extends DataListProps>(
   {
-    data = [] as Props["data"],
+    data,
   }: Props
 ) => {
+  if(!data.length) return <></>
   return (
     <ul className="grid w-full grid-cols-auto-fill place-content-center gap-3" >
       {
