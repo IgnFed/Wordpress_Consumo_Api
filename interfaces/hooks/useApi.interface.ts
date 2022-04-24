@@ -1,19 +1,16 @@
-export interface apiHookProps{
-  url?: string
-}
-
-
 interface IFilters{
-  method: 'GET',
   search: string,
-  orderByRelevance: boolean,
+  orderby: 'relevance',
   page: number
 }
 
-export type apiHookReturn<Data = any> = {
-  isLoading: boolean,
-  response: Data,
-  updateFilters: (filters: Filters)=> void,
-  abort: ()=> void
+type StatusResponse = "idle" | "loading" | "success" | "error";
+
+export type apiHookReturn<Data> = {
+  response: Data | null,
+  statusResponse: StatusResponse,
+  updateFilters(newFilters: Filters): void,
+  abort(): void,
+  apiData(): void
 }
 export type Filters = Partial<IFilters>

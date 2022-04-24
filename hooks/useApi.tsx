@@ -1,62 +1,57 @@
-import { useEffect, useState } from 'react';
-import { apiHookProps, apiHookReturn, Filters } from 'interfaces/hooks/useApi.interface';
-import { DataResponse } from 'interfaces/DataResponse.interface';
+import { apiHookReturn, Filters } from "interfaces/hooks/useApi.interface";
+import { useCallback, useEffect, useState } from "react";
 
-const INITIAL_STATE = {} as DataResponse
-let abortController:AbortController;
-const INITIAL_FILTERS = {
-  method: 'GET',
-  orderByRelevance: false,
-  page: 1,
-  search: '',
-} as Filters
+let abortController: AbortController;
 
-const BASE_URL = "https://beta.mejorconsalud.com/wp-json/mc/v3/"
+type StatusResponse = "idle" | "loading" | "success" | "error";
 
-const fetchData = async (url: string, parameters: Filters) => {
-  const { search, orderByRelevance, method, page } = parameters
-  const url_request = `posts?search=${search}&page=${page}${orderByRelevance ? '&orderby=relevance' : ''}`
-  return await fetch(url + url_request, {
-    method: method,
-    signal: abortController.signal
-  })
-}
+export const useApi = <DataResponse,>(
+  url: string,
+  inmediate?: boolean
+): apiHookReturn<DataResponse> => {
 
-export default function useApi<Props extends apiHookProps>(
-  {
-    url = BASE_URL,
-  }: Props
-): apiHookReturn<DataResponse> {
+  if (!url.endsWith("/")) url += "/"
 
-  const [response, setReponse] = useState<typeof INITIAL_STATE>(INITIAL_STATE)
-  const [ isLoading, setIsLoading ] = useState(false)
-  const [filters, setFilters] = useState(INITIAL_FILTERS)
+  const [data, setData] = useState<DataResponse | null>(null)
+  const [urlValue, setUrlValue] = useState<string>(url)
+  const [filters, setFilters] = useState<Filters>()
+  const [statusResponse, setStatusResponse] = useState<StatusResponse>("idle")
+
+  const apiData = useCallback(async () => {
+    setStatusResponse("loading")
+    await fetch(urlValue)
+      .then((response) => response.json())
+      .then((data) => {
+        setData(data)
+        setStatusResponse("success")
+      })
+
+  }, [urlValue])
+
+  useEffect(() => {
+    if(!filters) return
+    if (!Object.keys(filters).length) return
+    let newUrl = ""
+    Object.entries(filters).forEach(([key, value], idx) => {
+      if (value) newUrl += `${key}=${value}` + (idx + 1 < Object.entries(filters).length ? "&" : "")
+    })
+    newUrl = url + "?" + newUrl
+    setUrlValue(newUrl)
+  }, [filters])
 
   useEffect(()=>{
-    if(!filters.search) return
+    if(!inmediate) return
     abortController = new AbortController()
-    fetchData(url, filters)
-      .then(res => res.json())
-      .then(res => {
-        setReponse(()=>res)
-        setIsLoading(false)
-      })
-      return ()=>{
-        abortController.abort()
-        setIsLoading(true)
-      }
-    }, [filters])
+    apiData()
+    return ()=> abortController.abort()
+  }, [inmediate, apiData])
 
-    return {
-      response,
-      isLoading,
-      updateFilters: (filters: Filters) =>{
-        setFilters((prevFilters) => ({ ...prevFilters, ...filters }))
-        setIsLoading(true)
-      },
-      abort: ()=>{
-        abortController && abortController.abort()
-        setIsLoading(false)
-      }
+  return {
+    response: data,
+    statusResponse,
+    updateFilters: (newFilters: Filters)=> setFilters((prev)=> !prev ? newFilters : {...prev, ...newFilters}),
+    apiData,
+    abort: ()=> abortController && abortController.abort()
   }
+
 }
