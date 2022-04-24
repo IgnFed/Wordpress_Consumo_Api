@@ -5,12 +5,13 @@ import Link from 'next/link'
 const DataItem = <Props extends Data>(
   props: Props
 ) => {
+  const image = props.featured_media && props.featured_media["2048x2048"] || "/public/images/default_image.png"
   return (
     <li className="text-white pt-1 bg-slate-500 rounded-md text-center">
       <Link href='#' passHref>
         <a>
           <Image
-            src={props.featured_media['2048x2048']}
+            src={image}
             layout="responsive"
             decoding='async'
             loading='lazy'
