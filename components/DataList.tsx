@@ -43,9 +43,9 @@ export const DataList = <Props extends DataListProps>(
   return (
     <ul className="grid w-full grid-cols-auto-fill place-content-center gap-3" >
       {
-        data.map((item: Data, idx: number) => (
+        data.map(item => (
 
-          <DataItem key={item.id + idx} {...item} />
+          <DataItem key={item.id} {...item} />
 
         ))
       }
