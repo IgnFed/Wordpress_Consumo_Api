@@ -7,6 +7,7 @@ type StatusResponse = "idle" | "loading" | "success" | "error";
 
 export const useApi = <DataResponse,>(
   url: string,
+  initialFilters?: Filters,
   inmediate?: boolean
 ): apiHookReturn<DataResponse> => {
 
@@ -18,6 +19,7 @@ export const useApi = <DataResponse,>(
   const [statusResponse, setStatusResponse] = useState<StatusResponse>("idle")
 
   const apiData = useCallback(async () => {
+    if(!abortController) abortController = new AbortController()
     setStatusResponse("loading")
     await fetch(urlValue)
       .then((response) => response.json())
@@ -28,9 +30,14 @@ export const useApi = <DataResponse,>(
 
   }, [urlValue])
 
+  useEffect(() =>{
+    if(!initialFilters) return
+    setFilters(initialFilters) 
+  }, [])
+
   useEffect(() => {
     if(!filters) return
-    if (!Object.keys(filters).length) return
+    else if (!Object.keys(filters).length) return
     let newUrl = ""
     Object.entries(filters).forEach(([key, value], idx) => {
       if (value) newUrl += `${key}=${value}` + (idx + 1 < Object.entries(filters).length ? "&" : "")
@@ -51,7 +58,10 @@ export const useApi = <DataResponse,>(
     statusResponse,
     updateFilters: (newFilters: Filters)=> setFilters((prev)=> !prev ? newFilters : {...prev, ...newFilters}),
     apiData,
-    abort: ()=> abortController && abortController.abort()
+    abort: ()=>{
+      abortController && abortController.abort()
+      setStatusResponse("idle")
+    }
   }
 
 }

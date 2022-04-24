@@ -1,7 +1,8 @@
 interface IFilters{
   search: string,
-  orderby: 'relevance',
-  page: number
+  orderby: "relevance" | "date",
+  page: number,
+  order: "asc" | "desc"
 }
 
 type StatusResponse = "idle" | "loading" | "success" | "error";
