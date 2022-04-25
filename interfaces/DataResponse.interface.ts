@@ -25,8 +25,8 @@ export type Data = {
   title: string
 }
 
-export interface DataResponse {
-  data: Array<Data>,
+export interface DataResponse<DataType = Array<Data>>{
+  data: DataType,
   size: number,
   pages: number
 }
