@@ -24,9 +24,9 @@ export const Layout = <Props extends BasicProps & Exclude<SectionLayout, MetaExc
         }
         {metaTitle && <title>{metaTitle}</title>}
       </Head>
-      <section className={"p-2 h-screen overflow-y-auto" + ` ${props.layoutClass}`}>
+      <article className={"p-2 h-screen overflow-y-auto" + ` ${props.layoutClass}`}>
         {props.children}
-      </section>
+      </article>
     </>
   )
 }

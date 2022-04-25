@@ -10,7 +10,7 @@ import { DataResponse } from "interfaces/DataResponse.interface"
 import { Filters, FiltredDataResponse } from "interfaces/hooks/useApi.interface"
 import { Select } from "components/Select"
 import ReactPaginate from "react-paginate"
-import { Layout } from "components/Layout/section"
+import { Layout } from "components/Layout/article"
 
 const INITIAL_FILTERS = {
   search: '',
