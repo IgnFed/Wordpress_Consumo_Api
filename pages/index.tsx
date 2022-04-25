@@ -10,6 +10,7 @@ import { DataResponse } from "interfaces/DataResponse.interface"
 import { Filters } from "interfaces/hooks/useApi.interface"
 import { Select } from "components/Select"
 import ReactPaginate from "react-paginate"
+import { Layout } from "components/Layout/section"
 const INITIAL_FILTERS = {
   search: '',
   orderby: 'date',
@@ -25,20 +26,18 @@ export default function Home() {
   const orderRef = useRef<HTMLOptionElement>(null)
 
   useEffect(() => {
-    console.clear()
-    console.log(filters)
-    if(!response || response.size > 0) return
-      recallApiTimeOut = setTimeout(()=>{
-        updateFilters(INITIAL_FILTERS)
-        setFilters((prev)=>({...prev, ...INITIAL_FILTERS}))
-        orderByRef.current!.selected = true
-        orderRef.current!.selected = true
-        apiData()
-      }, 2500)
+    if (!response || response.size > 0) return
+    recallApiTimeOut = setTimeout(() => {
+      updateFilters(INITIAL_FILTERS)
+      setFilters((prev) => ({ ...prev, ...INITIAL_FILTERS }))
+      orderByRef.current!.selected = true
+      orderRef.current!.selected = true
+      apiData()
+    }, 2500)
 
-      return ()=>{
-        clearTimeout(recallApiTimeOut)
-      }
+    return () => {
+      clearTimeout(recallApiTimeOut)
+    }
   }, [response])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -54,14 +53,17 @@ export default function Home() {
   }
 
   const handlePageChange = (selectedItem: { selected: number }) => {
-    console.log(filters)
     setFilters({ ...filters, page: selectedItem.selected + 1 })
   }
 
 
   return (
-    <section className="pb-2 pr-2 pl-2 h-screen grid grid-rows-[auto_1fr] overflow-y-auto">
-      <section className="pt-2 pb-2 flex flex-col sticky top-0 z-10 w-full items-center flex-cols gap-2 bg-slate-900">
+    <Layout
+      title="Home Page"
+      layoutClass="grid grid-rows-[auto_1fr]"
+      image="meta-dd://local"
+    >
+      <div className="pb-2 pt-2 flex flex-col sticky -top-2 z-10 w-full items-center flex-cols gap-2 bg-slate-900">
         <Form submitEvent={handleSubmit} >
           <Input
             handleChange={handleChange}
@@ -109,7 +111,7 @@ export default function Home() {
               'Elementos encontrados: ' + (response && response?.size || 0)
           }
         </DataMessage>
-      </section>
+      </div>
       {
         statusResponse === 'loading' ?
 
@@ -121,6 +123,6 @@ export default function Home() {
           <DataList data={response && response.data || []} />
       }
 
-    </section>
+    </Layout>
   )
 }
