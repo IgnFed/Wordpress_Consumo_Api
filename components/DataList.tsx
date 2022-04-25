@@ -2,8 +2,8 @@ import Image from 'next/image'
 import { Data } from "interfaces/DataResponse.interface"
 import Link from 'next/link'
 
-const DataItem = <Props extends Data>(
-  props: Props
+const DataItem = <Props extends Data & {idx:number}>(
+  props: Props,
 ) => {
   const image = props.featured_media && props.featured_media["2048x2048"] || "/public/images/default_image.png"
   return (
@@ -14,8 +14,9 @@ const DataItem = <Props extends Data>(
             src={image}
             layout="responsive"
             decoding='async'
-            loading='lazy'
+            loading={props.idx === 0 ? 'eager' : 'lazy'}
             width='100%'
+            priority={props.idx === 0 ? true : false}
             height="100%"
             about={props.slug}
             alt={props.title} />
@@ -43,9 +44,9 @@ export const DataList = <Props extends DataListProps>(
   return (
     <ul className="grid w-full grid-cols-auto-fill place-content-center gap-3" >
       {
-        data.map(item => (
+        data.map((item, idx) => (
 
-          <DataItem key={item.id} {...item} />
+          <DataItem key={item.id} {...item} idx={idx} />
 
         ))
       }
