@@ -1,5 +1,5 @@
 type TwitterCreator = `@${string}`
-interface Meta{
+export interface Meta{
   ampUrl: string
   "article:author": string
   "article:publisher": string
@@ -29,12 +29,4 @@ interface Meta{
   "twitter:card": string
   "twitter:creator": TwitterCreator
   "twitter:site": TwitterCreator
-}
-
-
-export type OptionalMeta = Partial<Meta>
-
-export interface SectionLayout {
-  metas?: OptionalMeta
-  layoutClass?: string
 }

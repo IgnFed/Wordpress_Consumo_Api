@@ -1,8 +1,8 @@
 import Image from 'next/image'
-import { Data } from "interfaces/DataResponse.interface"
 import Link from 'next/link'
+import { FiltredDataResponse } from 'interfaces/hooks/useApi.interface'
 
-const DataItem = <Props extends Data & {idx:number}>(
+const DataItem = <Props extends FiltredDataResponse & {idx:number}>(
   props: Props,
 ) => {
   const image = props.featured_media && props.featured_media["2048x2048"] || "/public/images/default_image.png"
@@ -31,7 +31,7 @@ const DataItem = <Props extends Data & {idx:number}>(
 }
 
 interface DataListProps {
-  data: Array<Data>
+  data: Array<FiltredDataResponse>
 }
 
 

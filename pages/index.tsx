@@ -7,21 +7,27 @@ import { Loader } from "components/Loader"
 import { Button } from "components/Button"
 import { DataMessage } from "components/DataMessage"
 import { DataResponse } from "interfaces/DataResponse.interface"
-import { Filters } from "interfaces/hooks/useApi.interface"
+import { Filters, FiltredDataResponse } from "interfaces/hooks/useApi.interface"
 import { Select } from "components/Select"
 import ReactPaginate from "react-paginate"
 import { Layout } from "components/Layout/section"
+
 const INITIAL_FILTERS = {
   search: '',
   orderby: 'date',
   page: 1,
   order: 'desc',
 } as Filters
+
 let recallApiTimeOut: any
+
 export default function Home() {
 
   const [filters, setFilters] = useState<Filters>(INITIAL_FILTERS)
-  const { updateFilters, statusResponse, response, abort, apiData } = useApi<DataResponse>("https://beta.mejorconsalud.com/wp-json/mc/v3/posts", filters, true)
+  const { updateFilters, statusResponse, response, abort, apiData } = 
+          useApi<DataResponse<
+                              Array<FiltredDataResponse>
+                              >>("https://beta.mejorconsalud.com/wp-json/mc/v3/posts", filters, true)
   const orderByRef = useRef<HTMLOptionElement>(null)
   const orderRef = useRef<HTMLOptionElement>(null)
 

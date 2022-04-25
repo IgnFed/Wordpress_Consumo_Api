@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { BasicProps } from "interfaces/components/BasicProps.interface";
-import { SectionLayout } from "interfaces/components/Layout/section.interface";
+import { SectionLayout } from "interfaces/components/Layout/SectionLayout.interface";
 
 type MetaExclude = "ampUrl" | "schema" | "msvalidate.01" | "yandex-verification"
 const MetaExludeArray = ["ampUrl", "schema", "msvalidate.01", "yandex-verification"]
