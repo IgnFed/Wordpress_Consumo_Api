@@ -1,5 +1,5 @@
 import Head from "next/head"
-import { BasicProps } from "interfaces/components/BasicProps"
+import { BasicProps } from "interfaces/components/BasicProps.interface"
 
 export default function Layout
   <Props extends BasicProps>(
@@ -14,7 +14,7 @@ export default function Layout
         <link rel="shortcur icon" href="https://cdn.atomik.vip/themes/mcs/favicon.png" type="image/x-icon" />
         <link rel="apple-touch-icon" href="public/vercel.svg" />
         <meta lang="es" />
-        <meta property="og:site_name" content="Pagina de inicio de Mejor con salud" />
+        <meta property="og:site_name" content="Pagina de Mejor con salud" />
         <meta property="og:description" content="En nuestro portal encontrarás contenido de diversa 
         índole: enfermedades y tratamientos, bienestar, remedios naturales, dietas y recetas, 
         psicología, pareja, maternidad y estilo de vida. Todo ello desarrollado por un equipo de 
@@ -25,8 +25,7 @@ export default function Layout
         <meta property="og:locale" content="es_ES" />
 
         <meta property="twitter:card" content="summary_large_image" />
-        <meta property="twitter:creator" content="@IgnFedor" />
-        <meta property="og:url" content="http://localhost:3001/" />
+        <meta property="og:url" content="https://wordpress-consumo-api.vercel.app/" />
 
         <title>Mejor con salud</title>
       </Head>
