@@ -1,4 +1,5 @@
 import { DataResponse } from "interfaces/DataResponse.interface";
+import { OnlyIncludeData } from "utils/types";
 
 interface IFilters{
   search: string,
@@ -18,6 +19,5 @@ export type apiHookReturn<Data> = {
 }
 export type Filters = Partial<IFilters>
 
-type OnlyIncludeData<Data, Exclude extends keyof Data>  = Pick<Data, Exclude> 
 type InlcudedDataOnResponse = "id" | "featured_media" | "slug" | "title"
 export type FiltredDataResponse = OnlyIncludeData<DataResponse["data"][0], InlcudedDataOnResponse>
