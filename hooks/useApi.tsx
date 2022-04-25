@@ -15,7 +15,7 @@ export const useApi = <DataResponse,>(
 
   const [data, setData] = useState<DataResponse | null>(null)
   const [urlValue, setUrlValue] = useState<string>(url)
-  const [filters, setFilters] = useState<Filters>()
+  const [filters, setFilters] = useState<typeof initialFilters>(initialFilters)
   const [statusResponse, setStatusResponse] = useState<StatusResponse>("idle")
 
   const apiData = useCallback(async () => {
