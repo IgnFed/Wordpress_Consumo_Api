@@ -8,7 +8,7 @@ const DataItem = <Props extends Data & {idx:number}>(
   const image = props.featured_media && props.featured_media["2048x2048"] || "/public/images/default_image.png"
   return (
     <li className="text-white pt-1 bg-slate-500 rounded-md text-center">
-      <Link href='#' passHref>
+      <Link href={`/posts/${props.id}`} passHref>
         <a>
           <Image
             src={image}
