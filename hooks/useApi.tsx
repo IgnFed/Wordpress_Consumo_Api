@@ -30,14 +30,9 @@ export const useApi = <DataResponse,>(
 
   }, [urlValue])
 
-  useEffect(() =>{
-    if(!initialFilters) return
-    setFilters(initialFilters) 
-  }, [])
-
   useEffect(() => {
     if(!filters) return
-    else if (!Object.keys(filters).length) return
+    if (!Object.keys(filters).length) return
     let newUrl = ""
     Object.entries(filters).forEach(([key, value], idx) => {
       if (value) newUrl += `${key}=${value}` + (idx + 1 < Object.entries(filters).length ? "&" : "")
