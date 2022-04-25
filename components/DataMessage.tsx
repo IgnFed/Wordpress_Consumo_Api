@@ -1,6 +1,6 @@
 import { BasicProps } from 'interfaces/components/BasicProps'
 
-export const NoData = <Props extends BasicProps>(
+export const DataMessage = <Props extends BasicProps>(
   {
     children
   }: Props
