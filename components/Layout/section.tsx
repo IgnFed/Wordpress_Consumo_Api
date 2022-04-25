@@ -2,23 +2,28 @@ import Head from "next/head";
 import { BasicProps } from "interfaces/components/BasicProps.interface";
 import { SectionLayout } from "interfaces/components/Layout/section.interface";
 
-export const Layout = <Props extends BasicProps & SectionLayout>(
+type MetaExclude = "ampUrl" | "schema" | "msvalidate.01" | "yandex-verification"
+const MetaExludeArray = ["ampUrl", "schema", "msvalidate.01", "yandex-verification"]
+let metaTitle: string
+export const Layout = <Props extends BasicProps & Exclude<SectionLayout, MetaExclude>>(
   props: Props,
-)=>{
-  const filteredProps = Object.entries(props).filter(([_, value])=> value.includes('meta-'))
-  const serializedObject = filteredProps.map(([key, value])=>({[key]: value.replace('meta-', "")}))
-  console.log({props,filteredProps, serializedObject})
+) => {
   return (
     <>
-    <Head>
-      <meta property="twitter:card" content="summary" />
-      {
-        Object.entries(serializedObject).map(([key, value])=>(
-          <meta key={key} property={`og:${key}`} content={`${value}`} />
-        ))
-      }
-      { props.title && <title>Mejor con Salud - {props.title}</title> }
-    </Head>
+      <Head>
+        <meta property="twitter:card" content="summary" />
+        {
+          props.metas && Object.entries(props.metas).map(([key, value]) => {
+            if (!MetaExludeArray.includes(key))
+              return <meta key={key} property={`${key}`} content={`${value}`} />
+            if (key === 'title') {
+              metaTitle = `${value}`
+              return
+            }
+          })
+        }
+        {metaTitle && <title>{metaTitle}</title>}
+      </Head>
       <section className={"p-2 h-screen overflow-y-auto" + ` ${props.layoutClass}`}>
         {props.children}
       </section>
