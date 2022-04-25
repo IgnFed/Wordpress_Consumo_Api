@@ -59,9 +59,10 @@ export default function Home() {
 
   return (
     <Layout
-      title="Home Page"
+      metas={{
+        title: "Home Page",
+      }}
       layoutClass="grid grid-rows-[auto_1fr]"
-      image="meta-dd://local"
     >
       <div className="pb-2 pt-2 flex flex-col sticky -top-2 z-10 w-full items-center flex-cols gap-2 bg-slate-900">
         <Form submitEvent={handleSubmit} >
