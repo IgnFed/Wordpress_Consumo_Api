@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { useEffect, useState, useRef } from "react"
 import { useApi } from "hooks/useApi"
 import { Input } from 'components/Input'
 import { Form } from "components/Form"
@@ -16,10 +16,30 @@ const INITIAL_FILTERS = {
   page: 1,
   order: 'desc',
 } as Filters
+let recallApiTimeOut: any
 export default function Home() {
 
   const [filters, setFilters] = useState<Filters>(INITIAL_FILTERS)
-  const { updateFilters, statusResponse, response, abort } = useApi<DataResponse>("https://beta.mejorconsalud.com/wp-json/mc/v3/posts", filters, true)
+  const { updateFilters, statusResponse, response, abort, apiData } = useApi<DataResponse>("https://beta.mejorconsalud.com/wp-json/mc/v3/posts", filters, true)
+  const orderByRef = useRef<HTMLOptionElement>(null)
+  const orderRef = useRef<HTMLOptionElement>(null)
+
+  useEffect(() => {
+    console.clear()
+    console.log(filters)
+    if(!response || response.size > 0) return
+      recallApiTimeOut = setTimeout(()=>{
+        updateFilters(INITIAL_FILTERS)
+        setFilters((prev)=>({...prev, ...INITIAL_FILTERS}))
+        orderByRef.current!.selected = true
+        orderRef.current!.selected = true
+        apiData()
+      }, 2500)
+
+      return ()=>{
+        clearTimeout(recallApiTimeOut)
+      }
+  }, [response])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     setFilters((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -34,9 +54,10 @@ export default function Home() {
   }
 
   const handlePageChange = (selectedItem: { selected: number }) => {
-    console.log(selectedItem.selected + 1)
+    console.log(filters)
     setFilters({ ...filters, page: selectedItem.selected + 1 })
   }
+
 
   return (
     <section className="pb-2 pr-2 pl-2 h-screen grid grid-rows-[auto_1fr] overflow-y-auto">
@@ -54,14 +75,14 @@ export default function Home() {
               name="orderby"
               onChange={handleChange}
             >
-              <option value="date" defaultChecked >Date</option>
-              <option value="relevance" >Relevance</option>
+              <option ref={orderByRef} value="date" defaultChecked >Date</option>
+              <option value="relevance">Relevance</option>
             </Select>
             <Select
               name="order"
               onChange={handleChange}
             >
-              <option value="desc" defaultChecked >Descendence</option>
+              <option ref={orderRef} value="desc" defaultChecked>Descendence</option>
               <option value="asc" >Ascendence</option>
             </Select>
           </div>
@@ -82,13 +103,10 @@ export default function Home() {
         </Form>
         <DataMessage>
           {
-            statusResponse === 'loading' || statusResponse !== 'success' ?
-              'Buscando elementos...'
+            response && response.size === 0 ?
+              '¡No hay artículos relacionados con el término de búsqueda!'
               :
-              response && response.size === 0 ?
-                '¡No hay artículos relacionados con el término de búsqueda!'
-                :
-                'Elementos encontrados: ' + (response && response?.size || 0) 
+              'Elementos encontrados: ' + (response && response?.size || 0)
           }
         </DataMessage>
       </section>
