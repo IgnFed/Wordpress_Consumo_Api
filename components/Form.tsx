@@ -1,4 +1,4 @@
-import { BasicProps } from "interfaces/components/BasicProps"
+import { BasicProps } from "interfaces/components/BasicProps.interface"
 
 interface FormProps extends BasicProps {
   submitEvent: (e: React.FormEvent<HTMLFormElement>) => void

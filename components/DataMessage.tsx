@@ -1,4 +1,4 @@
-import { BasicProps } from 'interfaces/components/BasicProps'
+import { BasicProps } from 'interfaces/components/BasicProps.interface'
 
 export const DataMessage = <Props extends BasicProps>(
   {

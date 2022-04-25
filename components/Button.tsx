@@ -1,4 +1,4 @@
-import { BasicProps } from "interfaces/components/BasicProps";
+import { BasicProps } from "interfaces/components/BasicProps.interface";
 
 type ButtonType = 'button' | 'submit' | 'reset';
 

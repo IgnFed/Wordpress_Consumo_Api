@@ -1,4 +1,4 @@
-import { BasicProps } from "interfaces/components/BasicProps"
+import { BasicProps } from "interfaces/components/BasicProps.interface"
 
 interface InputProps extends BasicProps {
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void
