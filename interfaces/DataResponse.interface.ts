@@ -1,7 +1,7 @@
 import { OnlyIncludeData } from "utils/types"
 import { Meta } from "./MetaTags.interface"
 
-type Categories = [
+export type Categories = [
   {
     description: string,
     id: number,
@@ -17,7 +17,7 @@ type AuthorProfession = {
   signed: string
 }
 
-type AuthorSocialProfiles = {
+export type AuthorSocialProfiles = {
   facebook: string,
   twitter: string,
   instagram: string,
