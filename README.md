@@ -1,4 +1,4 @@
-### Aplicacion desarrollada con [NextJS](https://www.nextjs.org) y enviada a producción con [Vercel](https://www.vercel.com). Puede visitar la página en este [link]("https://wordpress-consumo-api.vercel.app/")
+### Aplicacion desarrollada con [NextJS](https://www.nextjs.org) y enviada a producción con [Vercel](https://www.vercel.com). Puede visitar la página en este [link](https://wordpress-consumo-api.vercel.app/)
 
 ## Getting Started
 
