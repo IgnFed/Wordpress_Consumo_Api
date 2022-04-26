@@ -53,10 +53,9 @@ export default function Socials<Props extends SocialProps>(
 ) {
   return (
     <ul
-      className='fixed z-10 w-full sm:relative bg-slate-800 p-2 pr-0
-    overflow-x-auto flex justify-center sm:justify-start items-center 
-    flex-wrap sm:flex-col sm:items-end 
-    sm:flex-nowrap top-0 sm:bg-inherit gap-2'
+      className='fixed z-10 w-full sm:relative bg-slate-800 p-2 sm:pr-0
+    overflow-x-auto flex sm:justify-start items-center 
+    flex-nowrap sm:flex-col sm:items-end top-0 sm:bg-inherit gap-2'
     >
       {
         Object.entries(socialsMedia)

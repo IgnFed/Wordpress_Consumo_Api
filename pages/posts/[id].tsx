@@ -27,8 +27,8 @@ export default function Post<Props extends PostProps>(
     >
       <Socials socialsMedia={response.author.social_profiles} />
       <div className="mt-14 sm:mt-2 mb-2 col-start-2 overflow-y-auto pl-2 sm:pl-0">
-        <Section titleAs="h1" className="mb-4" title={response.title} >
-          <div className="flex flex-wrap mt-4 gap-4 items-center">
+        <Section titleAs="h1" className="mb-4 mt-8 sm:mt-0" title={response.title} >
+          <div className="flex flex-wrap mt-8 gap-4 items-center">
             <MetaArticle>{new Date(response.published).toDateString()}</MetaArticle>
             {
               response.tags && response.tags.map((tag) => (
