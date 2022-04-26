@@ -17,6 +17,18 @@ module.exports = {
       animation: {
         'waving': 'wave 2s linear infinite',
       },
+      colors:{
+        facebook: '#3b5998',
+        twitter: '#1da1f2',
+        instagram: '#e1306c',
+        youtube: '#ff0000',
+        linkedin: '#0077b5',
+        pinterest: '#bd081c',
+        github: '#333',
+        behance: '#1769ff',
+        dribbble: '#ea4c89',
+        url: "rgb(39, 39, 43)",
+      },
     },
   },
   plugins: [],
