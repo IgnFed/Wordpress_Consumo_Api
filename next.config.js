@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: false,
   images:{
-    domains: ['beta.mejorconsalud.com', "mejorconsalud.as.com"]
+    domains: ['beta.mejorconsalud.com', "mejorconsalud.as.com", "beta.mejorconsalud.comhttps"],
   }
 }
 
