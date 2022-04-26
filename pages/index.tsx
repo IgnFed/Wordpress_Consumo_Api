@@ -26,10 +26,10 @@ let recallApiTimeOut: any
 export default function Home() {
 
   const [filters, setFilters] = useState<Filters>(INITIAL_FILTERS)
-  const { updateFilters, statusResponse, response, abort, apiData } = 
-          useApi<DataResponse<
-                              Array<FiltredDataResponse>
-                              >>("https://beta.mejorconsalud.com/wp-json/mc/v3/posts", filters, true)
+  const { updateFilters, statusResponse, response, abort, apiData } =
+    useApi<DataResponse<
+      Array<FiltredDataResponse>
+    >>("https://beta.mejorconsalud.com/wp-json/mc/v3/posts", filters, true)
   const orderByRef = useRef<HTMLOptionElement>(null)
   const orderRef = useRef<HTMLOptionElement>(null)
 
@@ -114,10 +114,13 @@ export default function Home() {
         </Form>
         <DataMessage>
           {
-            response && response.size === 0 ?
-              '¡No hay artículos relacionados con el término de búsqueda!'
+            statusResponse === "loading" ?
+              'Buscando artículos...'
               :
-              'Elementos encontrados: ' + (response && response?.size || 0)
+              response && response.size === 0 ?
+                '¡No hay artículos relacionados con el término de búsqueda!'
+                :
+                'Elementos encontrados: ' + (response && response?.size || 0)
           }
         </DataMessage>
       </div>
