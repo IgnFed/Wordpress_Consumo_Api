@@ -1,16 +1,18 @@
+import dynamic from "next/dynamic"
 import React, { useEffect, useState, useRef } from "react"
 import { useApi } from "hooks/useApi"
-import { Input } from 'components/Input'
-import { Form } from "components/Form"
-import { DataList } from "components/DataList"
-import { Loader } from "components/Loader"
-import { Button } from "components/Button"
-import { DataMessage } from "components/DataMessage"
 import { DataResponse } from "interfaces/DataResponse.interface"
 import { Filters, FiltredDataResponse } from "interfaces/hooks/useApi.interface"
-import { Select } from "components/Select"
-import ReactPaginate from "react-paginate"
-import { Layout } from "components/Layout/article"
+
+const Layout = dynamic(() => import("components/Layout/article"))
+const ReactPaginate = dynamic(() => import("react-paginate"))
+const Input = dynamic(() => import("components/Input"))
+const Form = dynamic(() => import("components/Form"))
+const DataList = dynamic(() => import("components/DataList"))
+const Loader = dynamic(() => import("components/Loader"))
+const Button = dynamic(() => import("components/Button"))
+const DataMessage = dynamic(() => import("components/DataMessage"))
+const Select = dynamic(() => import("components/Select"))
 
 const INITIAL_FILTERS = {
   search: '',

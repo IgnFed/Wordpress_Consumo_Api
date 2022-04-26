@@ -1,6 +1,8 @@
 import type { AppProps } from 'next/app'
-import Layout from '../components/Layout/main'
+import dynamic from 'next/dynamic'
 import '../styles/globals.css'
+
+const Layout = dynamic(()=> import('components/Layout/main'))
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
