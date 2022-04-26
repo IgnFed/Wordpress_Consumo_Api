@@ -7,7 +7,7 @@ interface SocialProps {
 }
 
 interface SocialItemProp {
-  name: string,
+  name: "facebook" | "twitter" | "instagram" | "youtube" | "linkedin" | "github" | "pinterest" | "behance" | "dribbble",
   url?: string
 }
 
@@ -23,6 +23,7 @@ const SOCIAL_COLOR = {
   dribbble: '#ea4c89'
 }
 
+
 const SocialItem = <Props extends SocialItemProp>(
   {
     name,
@@ -36,7 +37,6 @@ const SocialItem = <Props extends SocialItemProp>(
         target="_blank"
         rel="noopener noreferrer"
         className="rounded-md inline-block p-3"
-        // @ts-ignore
         style={{ backgroundColor: SOCIAL_COLOR[name] || "rgb(39,39,42)" }} >
         <span>{name}</span>
       </a>
@@ -63,7 +63,7 @@ export default function Socials<Props extends SocialProps>(
           .map(([key, value]) => {
             return (
               value && <li key={key} >
-                <SocialItem name={key} url={value} />
+                <SocialItem name={(key as SocialItemProp["name"])} url={value} />
               </li>
             )
           })
