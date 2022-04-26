@@ -5,9 +5,9 @@ import { SectionLayout } from "interfaces/components/Layout/SectionLayout.interf
 type MetaExclude = "ampUrl" | "schema" | "msvalidate.01" | "yandex-verification"
 const MetaExludeArray = ["ampUrl", "schema", "msvalidate.01", "yandex-verification"]
 let metaTitle: string
-export const Layout = <Props extends BasicProps & Exclude<SectionLayout, MetaExclude>>(
+export default function Layout<Props extends BasicProps & Exclude<SectionLayout, MetaExclude>>(
   props: Props,
-) => {
+){
   return (
     <>
       <Head>
