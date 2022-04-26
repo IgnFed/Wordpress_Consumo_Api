@@ -63,6 +63,7 @@ export type PostData = {
   categories: Categories,
   content: string,
   excerpt: string,
+  bibliography: string,
   featured_media: FeatureMedia,
   headline: string,
   link: string,
