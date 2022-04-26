@@ -36,6 +36,7 @@ const SocialItem = <Props extends SocialItemProp>(
         target="_blank"
         rel="noopener noreferrer"
         className="rounded-md inline-block p-3"
+        // @ts-ignore
         style={{ backgroundColor: SOCIAL_COLOR[name] || "rgb(39,39,42)" }} >
         <span>{name}</span>
       </a>
