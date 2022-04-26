@@ -1,6 +1,7 @@
 import { AuthorSocialProfiles } from 'interfaces/DataResponse.interface'
-import Link from 'next/link'
+import dynamic from 'next/dynamic'
 
+const Link = dynamic(()=> import('next/link'))
 interface SocialProps {
   socialsMedia: AuthorSocialProfiles
 }

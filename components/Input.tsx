@@ -9,7 +9,7 @@ interface InputProps extends BasicProps {
   type?: string
 }
 
-export const Input = <Props extends InputProps>(
+export default function Input<Props extends InputProps>(
   {
     handleChange,
     value,
@@ -19,7 +19,7 @@ export const Input = <Props extends InputProps>(
     placeholder,
     type = 'text'
   }: Props
-) => {
+) {
   return (
     <label htmlFor={id} className=" w-full sm:w-9/12 flex flex-col items-center" >
       <span>{children}</span>
@@ -29,9 +29,9 @@ export const Input = <Props extends InputProps>(
         name={name}
         className="placeholder:text-slate-300 text-black w-full max-w-lg font-bold border-none outline-none rounded-md p-3"
         onChange={handleChange}
-        value={value} 
+        value={value}
         placeholder={placeholder}
-        />
+      />
     </label>
   )
 }

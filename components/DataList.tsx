@@ -1,8 +1,10 @@
-import Image from 'next/image'
-import Link from 'next/link'
 import { FiltredDataResponse } from 'interfaces/hooks/useApi.interface'
+import dynamic from 'next/dynamic'
 
-const DataItem = <Props extends FiltredDataResponse & {idx:number}>(
+const Image = dynamic(() => import('next/image'))
+const Link = dynamic(() => import('next/link'))
+
+const DataItem = <Props extends FiltredDataResponse & { idx: number }>(
   props: Props,
 ) => {
   const image = props.featured_media && props.featured_media["2048x2048"] || "/public/images/default_image.png"
@@ -20,10 +22,10 @@ const DataItem = <Props extends FiltredDataResponse & {idx:number}>(
             height="100%"
             about={props.slug}
             alt={props.title} />
-            
-            <span>
-              {props.title}
-            </span>
+
+          <span>
+            {props.title}
+          </span>
         </a>
       </Link>
     </li>
@@ -35,12 +37,12 @@ interface DataListProps {
 }
 
 
-export const DataList = <Props extends DataListProps>(
+export default function DataList<Props extends DataListProps>(
   {
     data,
   }: Props
-) => {
-  if(!data.length) return <></>
+) {
+  if (!data.length) return <></>
   return (
     <ul className="grid w-full grid-cols-auto-fill place-content-center gap-3" >
       {

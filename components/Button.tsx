@@ -9,7 +9,7 @@ interface ButtonProps extends BasicProps {
   onClick?: (e: React.MouseEvent<HTMLElement>) => void
 }
 
-export const Button = <Props extends ButtonProps>(
+export default function Button<Props extends ButtonProps>(
   {
     children,
     className = '',
@@ -17,13 +17,16 @@ export const Button = <Props extends ButtonProps>(
     disabled = false,
     onClick = () => { }
   }: Props
-) => (
-  <button
-    type={type}
-    onClick={onClick}
-    disabled={disabled}
-    className={`bg-gray-700 hover:bg-slate-800 p-2 rounded-md text-gray-100 ${disabled ? 'bg-gray-600' : ""} ${disabled ? 'text-slate-400' : ""} transition-colors ${className}`}
-  >
-    {children}
-  </button>
-)
+) {
+
+  return (
+    <button
+      type={type}
+      onClick={onClick}
+      disabled={disabled}
+      className={`bg-gray-700 hover:bg-slate-800 p-2 rounded-md text-gray-100 ${disabled ? 'bg-gray-600' : ""} ${disabled ? 'text-slate-400' : ""} transition-colors ${className}`}
+    >
+      {children}
+    </button>
+  )
+}

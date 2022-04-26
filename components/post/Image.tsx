@@ -1,4 +1,6 @@
-import NextImage from 'next/image';
+import dynamic from 'next/dynamic';
+
+const NextImage = dynamic(()=> import('next/image')) 
 
 interface ImageProps {
   src: string,

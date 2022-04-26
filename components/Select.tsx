@@ -6,14 +6,15 @@ interface SelectProps extends BasicProps {
   onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
 }
 
-export const Select = <Props extends SelectProps>(
+export default function Select<Props extends SelectProps>(
   {
     children,
     name,
     required,
     onChange
   }: Props
-) => {
+) {
+
   return (
     <select onChange={onChange} className="text-black p-2 rounded-md" name={name} required={required} >
       {children}
