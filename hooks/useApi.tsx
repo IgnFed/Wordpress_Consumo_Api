@@ -19,9 +19,10 @@ export const useApi = <DataResponse,>(
   const [statusResponse, setStatusResponse] = useState<StatusResponse>("idle")
 
   const apiData = useCallback(async () => {
-    if(!abortController) abortController = new AbortController()
     setStatusResponse("loading")
-    await fetch(urlValue)
+    await fetch(urlValue, {
+      signal: abortController.signal,
+    })
       .then((response) => response.json())
       .then((data) => {
         setData(data)
