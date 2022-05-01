@@ -18,10 +18,14 @@ function MyApp({ Component, pageProps }: AppProps) {
       events.off("routeChangeComplete", ()=> setLoading(false) )
     }
   }, [])
-  if(loading) return <Loader className="absolute flex left-2/4 top-2/4" />
   return (
     <Layout >
-      <Component {...pageProps} />
+      {
+      loading  ?
+        <Loader className="absolute flex left-2/4 top-2/4" />
+        :
+        <Component {...pageProps} />
+      }
     </Layout>
   )
 }
